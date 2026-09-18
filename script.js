@@ -13,10 +13,11 @@ let logo = document.createElement("img");
     logo.src = "./images/logo.png";
     logo.alt = "ESSLINGEN UNIVERSITY";
 let btnHelp = document.createElement("button");
-    btnHelp.classList.add("buttonRed");
+    btnHelp.classList.add("buttonRed", "startButtonSize");
     btnHelp.textContent = "Help";
 let btnOff = document.createElement("button");
-    btnOff.classList.add("buttonRed");
+    btnOff.classList.add("buttonRed", "startButtonSize", "pushRight");
+    btnOff.textContent = "Off";
 
 //Container für Start-/Shutdown-/Booting-/bootShutdown-Seite:
 
@@ -80,16 +81,16 @@ let helpContainer = document.createElement("div");
     helpContainer.classList.add("containerColumn", "borderBlue");
 let helpTitle = document.createElement("div");
     helpTitle.classList.add("contentText", "borderBlue", "flex2");
-    helpTitle.textContent = "ROOM";
+    helpTitle.textContent = "HELP";
 let helpRow01 = document.createElement("div");
     helpRow01.classList.add("contentText", "flex3");
-    helpRow01.textContent = "ROOM";
+    helpRow01.textContent = "Aus Sicherheitsgründen";
 let helpRow02 = document.createElement("div");
     helpRow02.classList.add("contentText", "flex3");
-    helpRow02.textContent = "ROOM";
+    helpRow02.textContent = "habe ich hier";
 let helpRow03 = document.createElement("div");
     helpRow03.classList.add("contentText", "flex3");
-    helpRow03.textContent = "ROOM";
+    helpRow03.textContent = "nur einen Fülltext.";
 let btnCloseHelp = document.createElement("button");
     btnCloseHelp.classList.add("buttonRed", "helpCloseButton");
     btnCloseHelp.textContent = "Close";
@@ -126,7 +127,7 @@ function helpPage() {
     main.classList.add("hidden");
     main.style.display = "none";
     btnHelp.classList.add("hidden");
-    btnOff.classList.add("hidden");
+    btnOff.classList.add("hiddenHelp");
     helpContainer.replaceChildren(helpTitle, helpRow01, helpRow02, helpRow03, btnCloseHelp);
     helpMain.replaceChildren(helpContainer);
     body.insertBefore(helpMain, footer);
@@ -137,7 +138,7 @@ function closeHelpPage() {
     main.classList.remove("hidden");
     main.style.display = "";
     btnHelp.classList.remove("hidden");
-    btnOff.classList.remove("hidden");
+    btnOff.classList.remove("hiddenHelp");
 }
 
 function startPage() {
@@ -152,6 +153,8 @@ function startPage() {
     footer.appendChild(btnHelp);
     footer.appendChild(roomName);
     footer.appendChild(logo);
+    footer.appendChild(btnOff);
+    btnOff.classList.add("hidden");
     main.appendChild(btnStart);
 }
 
@@ -167,6 +170,8 @@ function startBootPage() {
     footer.appendChild(btnHelp);
     footer.appendChild(roomName);
     footer.appendChild(logo);
+    footer.appendChild(btnOff);
+    btnOff.classList.add("hidden");
     main.appendChild(bootContainer);
     bootText.textContent = "Booting " + currentRoom.name + ", please wait."
     bootContainer.appendChild(bootText);
@@ -204,6 +209,7 @@ function roomPage() {
     main.appendChild(volumeContainer);
     main.appendChild(displayContainer);
     main.appendChild(roomContainer);
+    btnOff.classList.remove("hidden");
     volumeContainer.appendChild(volumeTitle);
     volumeContainer.appendChild(volumeButtonContainer);
     displayContainer.appendChild(displayTitle);
@@ -576,9 +582,11 @@ function shutdownBootPage() {
     body.appendChild(main);
     body.appendChild(footer);
     btnHelp.classList.add("hidden");
+    btnOff.classList.add("hidden");
     footer.appendChild(btnHelp);
     footer.appendChild(roomName);
     footer.appendChild(logo);
+    footer.appendChild(btnOff);
     main.appendChild(bootContainer);
     bootText.textContent = "Shutting down " + currentRoom.name + ", please wait."
     bootContainer.appendChild(bootText);
@@ -650,5 +658,6 @@ function roomCtrl() {
 startPage();
 
 btnStart.addEventListener("click", startBootPage);
+btnOff.addEventListener("click", shutdownBootPage);
 btnHelp.addEventListener("click", helpPage);
 btnCloseHelp.addEventListener("click", closeHelpPage);

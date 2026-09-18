@@ -12,6 +12,10 @@ body {
     visibility: hidden;
 }
 
+.hiddenHelp {
+    visibility: hidden;
+}
+
 .mainLightBlue {
     box-sizing: border-box;
     width: 100vw;
@@ -243,4 +247,8 @@ body {
 
 .paddingBottom {
     padding-bottom: 1vb;
+}
+
+.pushRight {
+    margin-left: auto;
 }
